@@ -7,6 +7,7 @@ public class MSSQLInsertExample {
     public static void main(String[] args) {
         // Database connection details
         String url = "jdbc:sqlserver://<server>:<port>;databaseName=<database>";
+String dbURL = "jdbc:sqlserver://demo-mssql\SQLEXPRESS02;encrypt=true;trustServerCertificate=true;databaseName=DemoDatabase";
         String user = "<username>";
         String password = "<password>";
 
