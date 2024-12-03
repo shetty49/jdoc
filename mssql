@@ -1,0 +1,52 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class MSSQLInsertExample {
+    public static void main(String[] args) {
+        // Database connection details
+        String url = "jdbc:sqlserver://<server>:<port>;databaseName=<database>";
+        String user = "<username>";
+        String password = "<password>";
+
+        // SQL INSERT query
+        String insertQuery = "INSERT INTO <your_table_name> (column1, column2) VALUES (?, ?)";
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            // Establish the connection
+            connection = DriverManager.getConnection(url, user, password);
+            System.out.println("Connected to the database!");
+
+            // Create a PreparedStatement
+            preparedStatement = connection.prepareStatement(insertQuery);
+
+            // Set the values for placeholders
+            preparedStatement.setString(1, "Value1"); // Replace with actual value for column1
+            preparedStatement.setInt(2, 42); // Replace with actual value for column2
+
+            // Execute the query
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new record was inserted successfully!");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error: " + e.getMessage());
+        } finally {
+            // Close resources
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
