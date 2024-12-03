@@ -1,0 +1,31 @@
+public class FileSaveDaoImpl implements FileSaveDao {
+	
+	
+    private static final Logger logger = Logger.getLogger(LogicBoImpl.class.getName());
+    private static final String FILE_PATH_STUDENT = "F:\\files_db\\students.txt";
+    private static final String FILE_PATH_COURSE = "F:\\files_db\\course.txt";
+    private static final String FILE_PATH_FACULTY = "F:\\files_db\\faculty.txt";
+    private static final String FILE_PATH_SUBJECT = "F:\\files_db\\subject.txt";
+
+
+	@Override
+	public void addStudent(StudentVo st) {
+		logger.info("FileSaveDaoImpl --> addStudent"+st);
+		 try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_STUDENT, true))) {
+	            writer.write(st.toString());
+	            writer.newLine();
+	        } catch (NoFacultyAvailableException | IOException e) {
+	            logger.error("Error writing to file: " + e.getMessage());
+	        }
+	}
+
+	@Override
+	public void addFaculty(FacultyVo fa) {
+		logger.info("FileSaveDaoImpl --> addFaculty"+fa);
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_FACULTY, true))) {
+            writer.write(fa.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            logger.error("Error writing to file: " + e.getMessage());
+        }
+	}
